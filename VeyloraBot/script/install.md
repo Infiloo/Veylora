@@ -93,9 +93,6 @@ Example config file:
 
 ---
 
-## 📜 License
-Private Project – Not open source.
-
 ## 💌 Credits
 - **Creator:** Infiloo
 - **Mascot & Logo:** Created by Infiloo
