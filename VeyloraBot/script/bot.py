@@ -138,7 +138,7 @@ class VeyloraBot(commands.Bot):
 
     async def setup_hook(self):
         await self.tree.sync()
-        print(f"Synced slash commands.")
+        print(f"Synced slash commands globally (including DMs).")
 
     async def on_ready(self):
         activity = discord.Activity(
@@ -155,7 +155,7 @@ bot = VeyloraBot()
 #  Helper
 # ─────────────────────────────────────────────
 
-def build_embed(action: str, author: discord.Member, target: discord.Member, guild_id: int) -> discord.Embed:
+def build_embed(action: str, author: discord.User, target: discord.User, guild_id: int) -> discord.Embed:
     cfg = load_guild_config(guild_id)
     action_cfg = cfg.get(action, {})
 
@@ -176,7 +176,7 @@ def build_embed(action: str, author: discord.Member, target: discord.Member, gui
 
 async def interaction_command(
     interaction: discord.Interaction,
-    target: discord.Member,
+    target: discord.User,
     action: str,
 ):
     # Self-action check
@@ -211,48 +211,64 @@ async def interaction_command(
 # ─────────────────────────────────────────────
 
 @bot.tree.command(name="hug", description="Hug a user 💕")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who do you want to hug?")
-async def hug(interaction: discord.Interaction, user: discord.Member):
+async def hug(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "hug")
 
 
 @bot.tree.command(name="pat", description="Pat a user 🖐️")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who do you want to pat?")
-async def pat(interaction: discord.Interaction, user: discord.Member):
+async def pat(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "pat")
 
 
 @bot.tree.command(name="headpat", description="Headpat a user 🥰")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who gets the headpat?")
-async def headpat(interaction: discord.Interaction, user: discord.Member):
+async def headpat(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "headpat")
 
 
 @bot.tree.command(name="boop", description="Boop a user 👉")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who are you booping?")
-async def boop(interaction: discord.Interaction, user: discord.Member):
+async def boop(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "boop")
 
 
 @bot.tree.command(name="highfive", description="Highfive a user ✋")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who gets the high five?")
-async def highfive(interaction: discord.Interaction, user: discord.Member):
+async def highfive(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "highfive")
 
 
 @bot.tree.command(name="cheer", description="Cheer a user up 🎉")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who do you want to cheer on?")
-async def cheer(interaction: discord.Interaction, user: discord.Member):
+async def cheer(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "cheer")
 
 
 @bot.tree.command(name="wave", description="Wave to a user 👋")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @app_commands.describe(user="Who are you waving at?")
-async def wave(interaction: discord.Interaction, user: discord.Member):
+async def wave(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "wave")
 
 
 @bot.tree.command(name="add", description="Add Veylora to your Profile or Server ➕")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 async def add(interaction: discord.Interaction):
     embed = discord.Embed(
         title="Add Veylora 💕",
