@@ -130,8 +130,7 @@ def check_cooldown(user_id: int, command: str, seconds: int = DEFAULT_COOLDOWN) 
 # ─────────────────────────────────────────────
 #  Bot setup
 # ─────────────────────────────────────────────
-intents = discord.Intents.default()
-intents.message_content = True
+intents = discord.Intents.none()
 
 class VeyloraBot(commands.Bot):
     def __init__(self):
