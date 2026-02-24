@@ -40,6 +40,7 @@ Invite Veylora to your Discord server:
 | `/highfive` | Highfive a user ✋ |
 | `/cheer` | Cheer a user up 🎉 |
 | `/wave` | Wave to a user 👋 |
+| `/add` | Add VeyloraBot to your Profile or Server ➕ |
 
 ---
 
