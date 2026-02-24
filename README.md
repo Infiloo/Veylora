@@ -5,8 +5,6 @@
 Veylora brings pure good vibes — hugs, pats, boops, chaos, and whatever else you come up with 💫  
 Delightful. Perfectly unnecessary. 100% worth it. 💕
 
-![Veylora Mascot](https://i.imgur.com/i4aMXrH.png)
-
 ---
 
 ## ✨ Features
