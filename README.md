@@ -44,12 +44,6 @@ Invite Veylora to your Discord server:
 
 ---
 
-## 📜 License
-
-**Private Project** – Not open source.
-
----
-
 ## 💌 Credits
 
 - **Creator:** Infiloo  
