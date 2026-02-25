@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ### 2. Create your bot
 1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)  
 2. Create a new **Application → Bot**  
-3. Under *Privileged Gateway Intents*, enable **Message Content Intent**  
+3. Under *Privileged Gateway Intents*, enable **Message Content Intent**  (After a Big change this is not Necessary anymore)
 4. Copy your **Bot Token**
 
 ### 3. Configure the bot
