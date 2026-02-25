@@ -67,7 +67,7 @@ python bot.py
 ```
 ---
 
-# 🚀 Hosting & Support
+## 🚀 Hosting & Support
 
 **Veylora** is proudly hosted for free on **Wispbyte**! 
 
