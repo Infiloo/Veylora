@@ -11,6 +11,7 @@ import os
 import io
 import time
 import random
+import asyncio
 import aiohttp
 from pathlib import Path
 
@@ -288,18 +289,25 @@ async def patpat(interaction: discord.Interaction, user: discord.User):
 
     await interaction.response.defer()
 
-    avatar_url = user.display_avatar.replace(format="png", size=128).url
-    api_url = f"https://benisland.neocities.org/petpet/api?url={avatar_url}"
-
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(api_url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
-                if resp.status != 200:
-                    await interaction.followup.send("😿 Couldn't generate the gif, try again later!")
-                    return
-                gif_data = await resp.read()
+        from petpetgif import petpet as petpetgif
 
-        file = discord.File(fp=io.BytesIO(gif_data), filename="patpat.gif")
+        # Download avatar
+        avatar_url = user.display_avatar.replace(format="png", size=128).url
+        async with aiohttp.ClientSession() as session:
+            async with session.get(avatar_url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                if resp.status != 200:
+                    await interaction.followup.send("😿 Couldn't fetch that user's avatar, try again!")
+                    return
+                avatar_bytes = await resp.read()
+
+        # Generate petpet GIF locally (no external API)
+        source = io.BytesIO(avatar_bytes)
+        dest = io.BytesIO()
+        await asyncio.get_event_loop().run_in_executor(None, petpetgif.make, source, dest)
+        dest.seek(0)
+
+        file = discord.File(fp=dest, filename="patpat.gif")
         embed = discord.Embed(
             description=f"🐾 {interaction.user.display_name} patpats {user.display_name}!",
             color=0xf4a7c3
@@ -308,7 +316,7 @@ async def patpat(interaction: discord.Interaction, user: discord.User):
         embed.set_footer(text="Veylora • spreading chaos & love 💕")
         await interaction.followup.send(embed=embed, file=file)
 
-    except Exception:
+    except Exception as e:
         await interaction.followup.send("😿 Something went wrong generating the gif, try again later!")
 
 
