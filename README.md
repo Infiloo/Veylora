@@ -79,6 +79,7 @@ python bot.py
 | `/highfive` | High‑five a user ✋ |
 | `/cheer` | Cheer a user up 🎉 |
 | `/wave` | Wave to a user 👋 |
+| `/patpat` | Generates a Headpat Gif with the entered User PFP 🎥 |
 | `/add` | Add Veylora to your Profile or Server ➕ |
 
 ### Admin Commands *(Manage Server permission required)*
