@@ -6,6 +6,11 @@
 Delightful. Perfectly unnecessary. 100% worth it.
 
 ---
+## ⚠️ Feedback
+
+Hi, a short mesage from the Veylora Bot Creator. It would really help us if you fill out our short Survey to make Veylora Bot better! A link to a google form here: https://forms.gle/mvcwL8iQwKsym57v5
+
+---
 
 ## ✨ Features
 
