@@ -8,8 +8,10 @@ from discord.ext import commands
 from discord import app_commands
 import json
 import os
+import io
 import time
 import random
+import aiohttp
 from pathlib import Path
 
 # ─────────────────────────────────────────────
@@ -264,6 +266,50 @@ async def cheer(interaction: discord.Interaction, user: discord.User):
 @app_commands.describe(user="Who are you waving at?")
 async def wave(interaction: discord.Interaction, user: discord.User):
     await interaction_command(interaction, user, "wave")
+
+
+@bot.tree.command(name="patpat", description="Generate a headpat GIF for a user 🐾")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+@app_commands.describe(user="Who gets the patpat?")
+async def patpat(interaction: discord.Interaction, user: discord.User):
+    if user.id == interaction.user.id:
+        await interaction.response.send_message(
+            "You can't patpat yourself... but the thought is cute 🥺", ephemeral=True
+        )
+        return
+
+    remaining = check_cooldown(interaction.user.id, "patpat", seconds=10)
+    if remaining > 0:
+        await interaction.response.send_message(
+            f"⏳ Slow down! Try again in **{remaining:.1f}s**", ephemeral=True
+        )
+        return
+
+    await interaction.response.defer()
+
+    avatar_url = user.display_avatar.replace(format="png", size=128).url
+    api_url = f"https://benisland.neocities.org/petpet/api?url={avatar_url}"
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(api_url, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                if resp.status != 200:
+                    await interaction.followup.send("😿 Couldn't generate the gif, try again later!")
+                    return
+                gif_data = await resp.read()
+
+        file = discord.File(fp=io.BytesIO(gif_data), filename="patpat.gif")
+        embed = discord.Embed(
+            description=f"🐾 {interaction.user.display_name} patpats {user.display_name}!",
+            color=0xf4a7c3
+        )
+        embed.set_image(url="attachment://patpat.gif")
+        embed.set_footer(text="Veylora • spreading chaos & love 💕")
+        await interaction.followup.send(embed=embed, file=file)
+
+    except Exception:
+        await interaction.followup.send("😿 Something went wrong generating the gif, try again later!")
 
 
 @bot.tree.command(name="add", description="Add Veylora to your Profile or Server ➕")
