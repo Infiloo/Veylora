@@ -32,6 +32,8 @@ Add Veylora to your Discord server:
 
 ## 🧩 Self‑Hosting
 
+### Get the Bot Code here: [Github](https://github.com/Infiloo/Veylora)
+
 ### 1. Install dependencies
 ```bash
 pip install -r requirements.txt
