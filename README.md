@@ -99,6 +99,7 @@ By using this link, you help me maintain the bot and potentially unlock more res
 | `/cheer` | Cheer a user up 🎉 |
 | `/wave` | Wave to a user 👋 |
 | `/patpat` | Generates a Headpat Gif with the entered User PFP 🎥 |
+| `/send` | Easilly send large files for free over Discord 📁 |
 | `/add` | Add Veylora to your Profile or Server ➕ |
 
 ### Admin Commands *(Manage Server permission required)*
