@@ -385,7 +385,176 @@ async def config_reset(interaction: discord.Interaction):
 bot.tree.add_command(config_group)
 
 # ─────────────────────────────────────────────
-#  Run
+#  /send — Filebin session sharing
 # ─────────────────────────────────────────────
+
+import secrets
+
+# Active sessions: user_id -> {bin_id, bin_url, destination, expires_at}
+# destination is either a discord.TextChannel or discord.User
+_send_sessions: dict[int, dict] = {}
+SESSION_LIFETIME = 30 * 60  # 30 minutes in seconds
+FILEBIN_BASE = "https://filebin.net"
+
+
+def make_bin_id() -> str:
+    """Generate a unique Filebin bin ID."""
+    return secrets.token_urlsafe(12)
+
+
+def make_bin_url(bin_id: str) -> str:
+    return f"{FILEBIN_BASE}/{bin_id}"
+
+
+def destination_label(destination) -> str:
+    """Human-readable destination for embed display."""
+    if isinstance(destination, discord.User) or isinstance(destination, discord.Member):
+        return f"📬 DM to **{destination.display_name}**"
+    elif isinstance(destination, discord.TextChannel):
+        return f"📢 Channel **#{destination.name}** in **{destination.guild.name}**"
+    else:
+        return "📬 Direct Message"
+
+
+class SendView(discord.ui.View):
+    def __init__(self, issuer: discord.User, bin_id: str, bin_url: str, destination):
+        super().__init__(timeout=SESSION_LIFETIME)
+        self.issuer = issuer
+        self.bin_id = bin_id
+        self.bin_url = bin_url
+        self.destination = destination
+        self.sent = False
+
+    def build_preview_embed(self) -> discord.Embed:
+        embed = discord.Embed(
+            title="📦 File Share Session Ready",
+            color=0xf4a7c3
+        )
+        embed.add_field(name="📎 Upload your files here", value=f"[Open Filebin]({self.bin_url})", inline=False)
+        embed.add_field(name="📬 Will be sent to", value=destination_label(self.destination), inline=False)
+        embed.add_field(
+            name="⏳ Session expires",
+            value="This session is valid for **30 minutes**. Click **Send** when ready.",
+            inline=False
+        )
+        embed.set_footer(text="Veylora • spreading chaos & love 💕")
+        return embed
+
+    @discord.ui.button(label="Send 📤", style=discord.ButtonStyle.success)
+    async def send_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.issuer.id:
+            await interaction.response.send_message("This isn't your session! 👀", ephemeral=True)
+            return
+
+        if self.sent:
+            await interaction.response.send_message("Already sent! 📬", ephemeral=True)
+            return
+
+        self.sent = True
+        self.stop()
+
+        # Disable buttons
+        for child in self.children:
+            child.disabled = True
+        await interaction.response.edit_message(view=self)
+
+        # Build the delivery embed
+        delivery_embed = discord.Embed(
+            title="📦 Files shared with you!",
+            description=f"**{self.issuer.display_name}** sent you a file share link 💕",
+            color=0xf4a7c3
+        )
+        delivery_embed.add_field(name="📎 Download / View files", value=f"[Open Filebin]({self.bin_url})", inline=False)
+        delivery_embed.set_footer(text="Veylora • spreading chaos & love 💕")
+
+        try:
+            if isinstance(self.destination, (discord.User, discord.Member)):
+                await self.destination.send(embed=delivery_embed)
+                await interaction.followup.send(
+                    f"✅ Link sent to **{self.destination.display_name}**'s DMs!", ephemeral=True
+                )
+            elif isinstance(self.destination, discord.TextChannel):
+                await self.destination.send(embed=delivery_embed)
+                await interaction.followup.send(
+                    f"✅ Link posted in **#{self.destination.name}**!", ephemeral=True
+                )
+        except discord.Forbidden:
+            await interaction.followup.send(
+                "😿 Couldn't deliver — the user may have DMs closed or I lack channel permissions.",
+                ephemeral=True
+            )
+
+        # Clean up session
+        _send_sessions.pop(self.issuer.id, None)
+
+    @discord.ui.button(label="Cancel ✖", style=discord.ButtonStyle.danger)
+    async def cancel_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.issuer.id:
+            await interaction.response.send_message("This isn't your session! 👀", ephemeral=True)
+            return
+
+        self.stop()
+        await interaction.message.delete()
+        _send_sessions.pop(self.issuer.id, None)
+
+    async def on_timeout(self):
+        _send_sessions.pop(self.issuer.id, None)
+
+
+@bot.tree.command(name="send", description="Share files with a user or channel via Filebin 📦")
+@app_commands.allowed_installs(guilds=True, users=True)
+@app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+@app_commands.describe(user="Send the files to a specific user (optional — leave empty to send to current channel/DM)")
+async def send_cmd(interaction: discord.Interaction, user: discord.User = None):
+
+    issuer = interaction.user
+
+    # Block if already has an active session
+    existing = _send_sessions.get(issuer.id)
+    if existing and time.time() < existing["expires_at"]:
+        await interaction.response.send_message(
+            f"⚠️ You already have an active session! [Open it]({existing['bin_url']}) or cancel it first.",
+            ephemeral=True
+        )
+        return
+
+    # Determine destination
+    if user is not None:
+        # Explicit user target — always send as DM to that user
+        destination = user
+    elif interaction.guild is None:
+        # In a DM — destination is the other person in the DM (the issuer receives the link to share)
+        destination = issuer  # We send delivery back to this DM context
+    else:
+        # In a server, no user specified — send to the channel where command was run
+        destination = interaction.channel
+
+    # Create Filebin session
+    bin_id = make_bin_id()
+    bin_url = make_bin_url(bin_id)
+
+    _send_sessions[issuer.id] = {
+        "bin_id": bin_id,
+        "bin_url": bin_url,
+        "destination": destination,
+        "expires_at": time.time() + SESSION_LIFETIME,
+    }
+
+    view = SendView(issuer=issuer, bin_id=bin_id, bin_url=bin_url, destination=destination)
+
+    # Always send the control embed as an ephemeral DM-style message to the issuer
+    try:
+        dm = await issuer.create_dm()
+        await dm.send(embed=view.build_preview_embed(), view=view)
+        await interaction.response.send_message(
+            "📬 Check your DMs — I've sent you your file share session!", ephemeral=True
+        )
+    except discord.Forbidden:
+        # If DMs are closed, fall back to ephemeral in-channel
+        await interaction.response.send_message(
+            embed=view.build_preview_embed(), view=view, ephemeral=True
+        )
+
+
 if __name__ == "__main__":
     bot.run(TOKEN)
