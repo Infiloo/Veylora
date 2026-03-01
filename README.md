@@ -6,12 +6,9 @@ Delightful. Perfectly unnecessary. 100% worth it.
 
 ---
 
-⚠️ Join our Telegram Group for Updates on the Telegram Bot! [https://t.me/veylorabot](https://t.me/veylorabot)
+## ⚠️ Join our Telegram Group for Updates on the Telegram Bot! 
 
----
-
-## ⚠️ Feedback
-Hi, a short message from the Veylora Bot Creator. It would really help us if you fill out our short Survey to make Veylora Bot better! A link to a Google Form here: [Form](https://forms.gle/mvcwL8iQwKsym57v5)
+[https://t.me/veylorabot](https://t.me/veylorabot)
 
 ---
 
