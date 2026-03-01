@@ -12,9 +12,8 @@ Hi, a short mesage from the Veylora Bot Creator. It would really help us if you 
 
 ---
 
-### Please note that the Veylora Telegram Bot and the Veylora Discord Bot are two different Projects! 
-
-More about the Telegram version of the Bot here: [https://github.com/Infiloo/Veylora/tree/telegram](https://github.com/Infiloo/Veylora/tree/telegram)
+> ### Please note that the Veylora Telegram Bot and the Veylora Discord Bot are two different Projects! 
+> More about the Telegram version of the Bot here: [https://github.com/Infiloo/Veylora/tree/telegram](https://github.com/Infiloo/Veylora/tree/telegram)
 
 ---
 
