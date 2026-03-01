@@ -13,6 +13,10 @@ Link:
 
 ---
 
+### Please note that the Veylora Telegram Bot and the Veylora Discord Bot are two different Projects! 
+
+---
+
 ## ✨ Features
 - Hugs, pats, headpats, boops, highfives, cheers and waves
 - Chaotic but friendly interactions to keep chat active
