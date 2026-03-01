@@ -6,16 +6,14 @@ Delightful. Perfectly unnecessary. 100% worth it.
 
 ---
 
-## ⚠️ Join our Telegram Group for Updates on the Telegram Bot! 
-
-Link: 
-[https://t.me/veylorabot](https://t.me/veylorabot)
+## ⚠️ Feedback
+Hi, a short message from the Veylora Bot Creator. It would really help us if you fill out our short Survey to make Veylora Bot better! A link to a Google Form here: [Form](https://forms.gle/mvcwL8iQwKsym57v5)
 
 ---
 
-### Please note that the Veylora Telegram Bot and the Veylora Discord Bot are two different Projects! 
-
-More about the Original Veylora (Discord Bot) here: [https://github.com/Infiloo/Veylora/tree/discord](https://github.com/Infiloo/Veylora/tree/discord)
+## 🤖 Try Veylora on Telegram
+Add the official bot directly — no setup needed:
+👉 **[@veylora_bot](https://t.me/veylora_bot)**
 
 ---
 
