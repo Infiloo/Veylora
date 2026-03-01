@@ -8,6 +8,7 @@ Delightful. Perfectly unnecessary. 100% worth it.
 
 ## ⚠️ Join our Telegram Group for Updates on the Telegram Bot! 
 
+Link: 
 [https://t.me/veylorabot](https://t.me/veylorabot)
 
 ---
