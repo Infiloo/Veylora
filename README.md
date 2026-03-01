@@ -73,14 +73,14 @@ TelebotHost runs your bot entirely in the cloud for free using their own scripti
 4. Click **"Create"**
 
 #### 3. Add each command
-For every command in `veylora_tbl_commands.md`, do the following:
+For every command in `tbl-commands.md`, do the following:
 
 1. In your bot dashboard, click **"Create Command"**
 2. Set the **Command Name** exactly as shown (e.g. `/hug`)
 3. Paste the corresponding code block into the **Code** field
 4. Click **Save**
 
-Repeat for all 11 commands (`/start`, `/help`, `/hug`, `/pat`, `/headpat`, `/boop`, `/highfive`, `/cheer`, `/wave`, `/send`, and `!`).
+Repeat for all 11 commands (`/start`, `/help`, `/hug`, `/pat`, `/headpat`, `/boop`, `/highfive`, `/cheer`, `/wave`, `/send`, and `!`). The full code for each is in `tbl-commands.md`.
 
 #### 4. Done! ✅
 Your bot is live 24/7 for free. Test it by sending `/start` to your bot in Telegram.
@@ -102,7 +102,7 @@ pip install -r requirements.txt
 ```
 
 #### 3. Configure the bot
-Edit `veylora_telegram_bot.py` and replace:
+Edit `telegram-bot.py` and replace:
 ```python
 TOKEN = "YOUR_BOT_TOKEN_HERE"
 ```
@@ -113,7 +113,7 @@ export TELEGRAM_TOKEN=your_token_here
 
 #### 4. Run the bot
 ```bash
-python veylora_telegram_bot.py
+python telegram-bot.py
 ```
 
 #### 5. Hosting 24/7 (free options)
@@ -127,7 +127,7 @@ sudo apt update && sudo apt install python3-pip screen -y
 pip3 install -r requirements.txt
 screen -S veylora
 export TELEGRAM_TOKEN=your_token_here
-python3 veylora_telegram_bot.py
+python3 telegram-bot.py
 # Press Ctrl+A then D to detach — bot keeps running
 ```
 
@@ -140,7 +140,7 @@ python3 veylora_telegram_bot.py
 1. Sign up at [railway.app](https://railway.app)
 2. Create a new project → deploy from GitHub
 3. Add environment variable: `TELEGRAM_TOKEN=your_token`
-4. Set start command: `python veylora_telegram_bot.py`
+4. Set start command: `python telegram-bot.py`
 
 ---
 
