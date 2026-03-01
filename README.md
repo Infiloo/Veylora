@@ -11,6 +11,11 @@ Hi, a short message from the Veylora Bot Creator. It would really help us if you
 
 ---
 
+> ### ⚠️ Please note that the Veylora Telegram Bot and the Veylora Discord Bot are two different projects!
+> More about the Discord version here: [github.com/Infiloo/Veylora/tree/discord](https://github.com/Infiloo/Veylora/tree/discord)
+
+---
+
 ## 🤖 Try Veylora on Telegram
 Add the official bot directly — no setup needed:
 👉 **[@veylora_bot](https://t.me/veylora_bot)**
