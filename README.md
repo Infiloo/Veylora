@@ -1,121 +1,167 @@
-# Veylora
-
+# Veylora — Telegram
 ![Veylora Logo](https://i.imgur.com/KLc53YE.png)
 
 **Veylora** brings pure good vibes — hugs, pats, boops, chaos, and whatever else you come up with.  
 Delightful. Perfectly unnecessary. 100% worth it.
 
 ---
-## ⚠️ Feedback
 
-Hi, a short mesage from the Veylora Bot Creator. It would really help us if you fill out our short Survey to make Veylora Bot better! A link to a google form here: [Form](https://forms.gle/mvcwL8iQwKsym57v5)
+## ⚠️ Feedback
+Hi, a short message from the Veylora Bot Creator. It would really help us if you fill out our short Survey to make Veylora Bot better! A link to a Google Form here: [Form](https://forms.gle/mvcwL8iQwKsym57v5)
 
 ---
 
 ## ✨ Features
-
-- Hugs, pats, headpats, boops, highfives, cheers and waves  
-- Chaotic but friendly interactions to keep chat active  
-- Cooldown system (default 5 s per user per command)  
-- Per‑server personalization (custom emojis via `/vconfig`)  
-- Highly configurable responses and cooldowns  
-- Uses modern Discord features (discord.py v2, slash commands)
-
----
-
-## 🚀 Getting Started
-
-### User Install
-Invite Veylora to your Discord user profile for personal commands:  
-[**User Install**](https://discord.com/oauth2/authorize?client_id=1475540281418973306&integration_type=1&scope=applications.commands)
-
-### Server Install
-Add Veylora to your Discord server:  
-[**Server Install**](https://discord.com/oauth2/authorize?client_id=1475540281418973306&integration_type=0&scope=bot%20applications.commands&permissions=8)
-
----
-
-## 🧩 Self‑Hosting
-
-### Get the Bot Code here: [Github](https://github.com/Infiloo/Veylora)
-
-### 1. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Create your bot
-1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)  
-2. Create a new **Application → Bot**  
-3. Under *Privileged Gateway Intents*, enable **Message Content Intent**  (After a Big change this is not Necessary anymore)
-4. Copy your **Bot Token**
-
-### 3. Configure the bot
-Edit `bot.py` and replace:
-```python
-TOKEN = "YOUR_TOKEN_HERE"
-```
-Or set it as an environment variable:
-```bash
-export DISCORD_TOKEN=your_token_here
-```
-
-Replace `YOUR_CLIENT_ID` in the `/add` command with your Application ID.
-
-### 4. Invite your bot
-Use this URL (replace `YOUR_CLIENT_ID`):
-```
-https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot+applications.commands&permissions=277025770560
-```
-
-### 5. Run the bot
-```bash
-python bot.py
-```
----
-
-## 🚀 Hosting & Support
-
-**Veylora** is proudly hosted for free on **Wispbyte**! 
-
-To keep the bot running 24/7 without costs, I rely on reliable hosting services. If you'd like to support the project at no extra cost to you, please consider signing up for Wispbyte using my referral link below. 
-
-### How to support me:
-By using this link, you help me maintain the bot and potentially unlock more resources for future updates:
-
-👉 **[Support Veylora on Wispbyte](https://wispbyte.com/a?ref=infiloo)**
+- Hugs, pats, headpats, boops, highfives, cheers and waves
+- Chaotic but friendly interactions to keep chat active
+- Cooldown system (default 5 s per user per command)
+- Per-chat personalization (custom emojis via `/vconfig`)
+- Animated headpat GIFs using user profile pictures
+- File sharing via Filebin with session management
 
 ---
 
 ## 📚 Commands
 
 | Command | Description |
-|----------|-------------|
+|---------|-------------|
 | `/hug` | Hug a user 💕 |
 | `/pat` | Pat a user 🖐️ |
 | `/headpat` | Headpat a user 🥰 |
 | `/boop` | Boop a user 👉 |
-| `/highfive` | High‑five a user ✋ |
-| `/cheer` | Cheer a user up 🎉 |
+| `/highfive` | High-five a user ✋ |
+| `/cheer` | Cheer a user on 🎉 |
 | `/wave` | Wave to a user 👋 |
-| `/patpat` | Generates a Headpat Gif with the entered User PFP 🎥 |
-| `/send` | Easilly send large files for free over Discord 📁 |
-| `/add` | Add Veylora to your Profile or Server ➕ |
+| `/patpat` | Animated headpat GIF with target's profile picture 🎥 |
+| `/send` | Share large files for free via Filebin 📁 |
 
-### Admin Commands *(Manage Server permission required)*
+### Admin Commands *(Groups only — Admin permission required)*
 
 | Command | Description |
-|----------|-------------|
-| `/vconfig view` | View the server’s current configuration |
-| `/vconfig set_emoji` | Override custom emoji for a command |
+|---------|-------------|
+| `/vconfig view` | View the chat's current configuration |
+| `/vconfig set_emoji <action> <emoji>` | Override emoji for a command |
 | `/vconfig reset` | Reset all custom configuration |
+
+> **💡 How to use interaction commands:**  
+> **Reply** to someone's message, then type the command.  
+> Example: reply to a friend's message → type `/hug` → Veylora sends the hug!
 
 ---
 
-## 🔧 Per‑Server Configuration
+## 🧩 Self-Hosting
 
-Server administrators can fully customize Veylora’s emojis and responses with `/vconfig`.  
-Configuration is stored in `data/<guild_id>.json`.
+There are two ways to self-host Veylora on Telegram. Pick whichever suits you best.
+
+---
+
+### Option A — TelebotHost (Easiest, free, no server needed)
+
+TelebotHost runs your bot entirely in the cloud for free using their own scripting language (**TBL**). No Python, no installs, no VPS required.
+
+> ⚠️ **Limitations vs. Python version:** `/patpat` GIF generation and `/vconfig` per-chat config are not available on the TBL free plan due to no file system access.
+
+#### 1. Create your Telegram bot
+1. Open Telegram and search for [@BotFather](https://t.me/BotFather)
+2. Send `/newbot` and follow the prompts
+3. Copy your **Bot Token**
+
+#### 2. Set up on TelebotHost
+1. Go to [console.telebothost.com](https://console.telebothost.com)
+2. Click **"Create New Bot"**
+3. Enter your bot name and paste your token
+4. Click **"Create"**
+
+#### 3. Add each command
+For every command in `veylora_tbl_commands.md`, do the following:
+
+1. In your bot dashboard, click **"Create Command"**
+2. Set the **Command Name** exactly as shown (e.g. `/hug`)
+3. Paste the corresponding code block into the **Code** field
+4. Click **Save**
+
+Repeat for all 11 commands (`/start`, `/help`, `/hug`, `/pat`, `/headpat`, `/boop`, `/highfive`, `/cheer`, `/wave`, `/send`, and `!`).
+
+#### 4. Done! ✅
+Your bot is live 24/7 for free. Test it by sending `/start` to your bot in Telegram.
+
+---
+
+### Option B — Python / Self-Hosted Server
+
+Full-featured version with all commands including `/patpat` GIF generation and `/vconfig`.
+
+#### 1. Create your Telegram bot
+1. Open Telegram and search for [@BotFather](https://t.me/BotFather)
+2. Send `/newbot` and follow the prompts
+3. Copy your **Bot Token**
+
+#### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+#### 3. Configure the bot
+Edit `veylora_telegram_bot.py` and replace:
+```python
+TOKEN = "YOUR_BOT_TOKEN_HERE"
+```
+Or set it as an environment variable:
+```bash
+export TELEGRAM_TOKEN=your_token_here
+```
+
+#### 4. Run the bot
+```bash
+python veylora_telegram_bot.py
+```
+
+#### 5. Hosting 24/7 (free options)
+
+**Oracle Cloud — Recommended (truly free forever)**
+1. Sign up at [cloud.oracle.com](https://cloud.oracle.com) → use the **Always Free** tier
+2. Create a **VM.Standard.A1** instance (4 CPU, 24 GB RAM — free forever)
+3. SSH into your VM and run:
+```bash
+sudo apt update && sudo apt install python3-pip screen -y
+pip3 install -r requirements.txt
+screen -S veylora
+export TELEGRAM_TOKEN=your_token_here
+python3 veylora_telegram_bot.py
+# Press Ctrl+A then D to detach — bot keeps running
+```
+
+**Google Cloud Free Tier**
+1. Sign up at [cloud.google.com](https://cloud.google.com)
+2. Create a free **e2-micro** VM in `us-east1`
+3. SSH in and follow the same steps as Oracle above
+
+**Railway ($5 free credits/month)**
+1. Sign up at [railway.app](https://railway.app)
+2. Create a new project → deploy from GitHub
+3. Add environment variable: `TELEGRAM_TOKEN=your_token`
+4. Set start command: `python veylora_telegram_bot.py`
+
+---
+
+## 📊 Version Comparison
+
+| Feature | TelebotHost (TBL) | Python (Self-hosted) |
+|---------|:-----------------:|:--------------------:|
+| All interaction commands | ✅ | ✅ |
+| Cooldown system | ✅ | ✅ |
+| File sharing (`/send`) | ✅ | ✅ |
+| `/patpat` GIF generation | ❌ | ✅ |
+| Per-chat config (`/vconfig`) | ❌ | ✅ |
+| Hosting cost | 🆓 Free | 🆓 Free (with VPS) |
+| Setup difficulty | Easy | Medium |
+
+---
+
+## 🔧 Per-Chat Configuration *(Python version only)*
+
+Chat administrators can customize Veylora's emojis with `/vconfig`.  
+Configuration is stored in `data/<chat_id>.json`.
 
 Example configuration:
 ```json
@@ -132,7 +178,6 @@ Example configuration:
 ---
 
 ## 💌 Credits
-
-- **Creator:** Infiloo  
-- **Mascot & Logo:** Infiloo  
-- Thanks to everyone enjoying Veylora’s wholesome chaos 💕
+- **Creator:** Infiloo
+- **Mascot & Logo:** Infiloo
+- Thanks to everyone enjoying Veylora's wholesome chaos 💕
