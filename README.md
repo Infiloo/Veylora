@@ -15,6 +15,8 @@ Link:
 
 ### Please note that the Veylora Telegram Bot and the Veylora Discord Bot are two different Projects! 
 
+More about the Original Veylora (Discord Bot) here: [https://github.com/Infiloo/Veylora/tree/discord](https://github.com/Infiloo/Veylora/tree/discord)
+
 ---
 
 ## ✨ Features
