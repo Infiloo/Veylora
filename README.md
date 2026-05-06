@@ -89,6 +89,7 @@ To keep the bot running 24/7 without costs, I rely on reliable hosting services.
 By using this link, you help me maintain the bot and potentially unlock more resources for future updates:
 
 👉 **[Support Veylora on Wispbyte](https://wispbyte.com/a?ref=infiloo)**
+👉 **[Support Veylora for Free on Top.gg](https://top.gg/bot/1475540281418973306?s=07ed2f7de036f)
 
 ---
 
